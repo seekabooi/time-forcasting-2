@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# 项目特定
+storage/
+*.log
+*.csv
+*.pkl
+*.npy
+*.png
+*.txt
+.DS_Store

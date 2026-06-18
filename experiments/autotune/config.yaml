@@ -1,0 +1,60 @@
+# experiments/autotune/config.yaml
+# 自动调优+Generator配置文件
+
+# 数据集配置
+datasets:
+  - name: "melbourne_temp"
+    window_sizes: [600]
+    horizon: 7
+    step_size: 150
+
+  - name: "sunspots"
+    window_sizes: [ 120 ]       # 120个月 ≈ 10年
+    max_train_size: null      # 不限制，滑动到数据末尾
+    horizon: 12               # 预测12个月（1年）
+    step_size: 80             # 步长40个月，约 67 个窗口
+
+# 数据划分比例
+data_split:
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+# ★ 固定参数（不再调优）
+fixed_params:
+  long_skill_force_threshold: 0.70
+  route_bonus_long_skill: 0.15
+  residual_acf_threshold: 0.20
+
+# 对比测试配置
+comparison:
+  window_size: 600      # 窗口大小
+  horizon: 7            # 预测步数
+  step: 150             # 滑动步长
+  start: 0              # 窗口起点下限（默认为0）
+  end: 3000            # 窗口起点上限（null表示直到数据末尾）
+  rules_file: "storage/autotune_results/refined_rules.json"  # 规则文件路径
+  output_dir: "storage" # 输出目录
+
+# 局部特征窗口大小
+local_window_sizes: [30, 120]
+
+# LLM配置
+llm:
+  model: "glm-4"
+  temperature: 0.0
+  max_tokens: 4000
+
+# 输出目录
+output_dir: "storage/autotune_results"
+use_cache: false
+
+# 可视化配置
+visualization:
+  enabled: true
+  save_plots: true
+  show_plots: false
+
+# ★ 新增配置项
+stop_ratio: 0.01            # 停止阈值：困难窗口占比 < 1%
+audit_threshold_multiplier: 1.2  # 困难窗口判定阈值
+max_rules: 5                # 最大规则数
