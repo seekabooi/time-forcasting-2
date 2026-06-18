@@ -1,6 +1,4 @@
-# 时序版 FutureX
 
-面向 LLM Agent 的时间序列预测技能评估平台。
 
 ## 快速开始
 1. 复制 `.env.example` 为 `.env` 并填入智谱 API Key
